@@ -20,7 +20,7 @@ namespace staticwebappfunction
         {
             await SetUpDatabaseConnection();
 
-            return new OkObjectResult(JsonConvert.SerializeObject(await DoCosmostStuff()));
+            return new OkObjectResult(JsonConvert.SerializeObject(await GetAllProducts()));
         }
 
         private static async Task SetUpDatabaseConnection()
@@ -31,7 +31,7 @@ namespace staticwebappfunction
             _container = await database.CreateContainerIfNotExistsAsync("Products", "/Name", 400);
         }
 
-        private static async Task<List<Product>> DoCosmostStuff()
+        private static async Task<List<Product>> GetAllProducts()
         {
             var feedIterator = _container.GetItemQueryIterator<Product>();
             var products = new List<Product>();
